@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks - ADScoin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f0f4f7;
+            background-image: linear-gradient(135deg, #ffffff 0%, #e5f6fd 100%);
+            align-items: center;
+        }
+        h1 {
+            margin-top: 20px;
+            color: #0088cc;
+        }
+        .task-list {
+            margin-top: 20px;
+            width: 80%;
+            max-width: 600px;
+            text-align: right;
+        }
+        .task {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .task img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        .task p {
+            flex-grow: 1;
+            text-align: right;
+            margin: 0;
+        }
+        .complete-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /* تصميم النافذة المنبثقة */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .modal-content h2 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .close-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #006b9c;
+            padding: 15px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 16px;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .navbar a i {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .navbar a.active {
+            background-color: #004d71;
+            border-radius: 50px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ADScoin Tasks</h1>
+    <div class="task-list">
+        <div class="task">
+            <img src="https://i.suar.me/o496m/l" alt="Task 1">
+            <p>Task 1: Watch a Tutorial Video</p>
+            <button class="complete-btn" onclick="completeTask('https://t.me/example1')">Complete Task</button>
+        </div>
+        <div class="task">
+            <img src="https://i.suar.me/o496m/l" alt="Task 2">
+            <p>Task 2: Join Our Telegram Channel</p>
+            <button class="complete-btn" onclick="completeTask('https://t.me/example2')">Complete Task</button>
+        </div>
+        <div class="task">
+            <img src="https://i.suar.me/o496m/l" alt="Task 3">
+            <p>Task 3: Use Our Bot</p>
+            <button class="complete-btn" onclick="completeTask('https://t.me/example3')">Complete Task</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h2>Task Completed!</h2>
+            <p>You have successfully completed the task.</p>
+            <button class="close-btn" id="closeModalBtn">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // When completing a task
+        function completeTask(link) {
+            setTimeout(() => {
+                const modal = document.getElementById('myModal');
+                modal.style.display = 'flex'; // Show modal
+                document.getElementById('closeModalBtn').onclick = function() {
+                    modal.style.display = 'none';
+                    window.location.href = link; // Redirect to the link
+                };
+            }, 4000); // Show modal after 4 seconds
+        }
+
+        // Close the modal when the close button is pressed
+        document.getElementById('closeModalBtn').addEventListener('click', function() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+        });
+    </script>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html">
+            <i class="fas fa-home"></i>
+            Home
+        </a>
+        <a href="tasks.html" class="active">
+            <i class="fas fa-tasks"></i>
+            Tasks
+        </a>
+        <a href="wallet.html">
+            <i class="fas fa-wallet"></i>
+            Wallet
+        </a>
+        <a href="referral.html">
+            <i class="fas fa-user-friends"></i>
+            Referral
+        </a>
+    </div>
+
+</body>
+</html>
