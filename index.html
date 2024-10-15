@@ -26,7 +26,7 @@
             margin-top: 20px;
             width: 80%;
             max-width: 600px;
-            text-align: right; /* النص الآن سيكون من اليمين */
+            text-align: right;
         }
         .task {
             background-color: #fff;
@@ -47,7 +47,7 @@
         }
         .task p {
             flex-grow: 1;
-            text-align: right; /* النص داخل المهمة من اليمين */
+            text-align: right;
             margin: 0;
         }
         .complete-btn {
@@ -58,7 +58,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        /* تصميم النافذة المنبثقة */
+        .completed {
+            color: #28a745;
+            font-size: 24px;
+            margin-left: 10px;
+        }
         .modal {
             display: none;
             position: fixed;
@@ -101,7 +105,7 @@
             bottom: 0;
             width: 100%;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-            direction: rtl; /* ترتيب الأزرار من اليمين لليسار */
+            direction: rtl;
         }
         .navbar a {
             color: white;
@@ -127,20 +131,23 @@
 
     <h1>ADScoin Tasks</h1>
     <div class="task-list">
-        <div class="task">
+        <div class="task" id="task1">
             <img src="https://i.suar.me/o496m/l" alt="Task 1">
-            <p>Task 1: Watch a Tutorial Video</p>
-            <button class="complete-btn" onclick="completeTask('https://t.me/example1')">Complete Task</button>
+            <p>Join channel</p>
+            <button class="complete-btn" id="btn1" onclick="completeTask(1, 'https://t.me/ADScoins2025')">Complete Task</button>
+            <span class="completed" id="completed1" style="display: none;">✔️</span>
         </div>
-        <div class="task">
-            <img src="https://i.suar.me/o496m/l" alt="Task 2">
-            <p>Task 2: Join Our Telegram Channel</p>
-            <button class="complete-btn" onclick="completeTask('https://t.me/example2')">Complete Task</button>
+        <div class="task" id="task2">
+            <img src="https://i.suar.me/jMdO2/l" alt="Task 2">
+            <p>Join Channel</p>
+            <button class="complete-btn" id="btn2" onclick="completeTask(2, 'https://t.me/major/start?startapp=1368899842')">Complete Task</button>
+            <span class="completed" id="completed2" style="display: none;">✔️</span>
         </div>
-        <div class="task">
+        <div class="task" id="task3">
             <img src="https://i.suar.me/o496m/l" alt="Task 3">
-            <p>Task 3: Use Our Bot</p>
-            <button class="complete-btn" onclick="completeTask('https://t.me/example3')">Complete Task</button>
+            <p>Join channel</p>
+            <button class="complete-btn" id="btn3" onclick="completeTask(3, 'https://t.me/example3')">Complete Task</button>
+            <span class="completed" id="completed3" style="display: none;">✔️</span>
         </div>
     </div>
 
@@ -154,8 +161,21 @@
     </div>
 
     <script>
-        // When completing a task
-        function completeTask(link) {
+        // Function to load task completion status from local storage
+        function loadTasks() {
+            for (let i = 1; i <= 3; i++) {
+                const completed = localStorage.getItem('task' + i);
+                if (completed === 'true') {
+                    completeTaskDisplay(i);
+                }
+            }
+        }
+
+        // Function to mark task as completed
+        function completeTask(taskNumber, link) {
+            localStorage.setItem('task' + taskNumber, 'true'); // Save completion status
+            completeTaskDisplay(taskNumber);
+
             setTimeout(() => {
                 const modal = document.getElementById('myModal');
                 modal.style.display = 'flex'; // Show modal
@@ -165,6 +185,15 @@
                 };
             }, 4000); // Show modal after 4 seconds
         }
+
+        // Function to update the UI for completed task
+        function completeTaskDisplay(taskNumber) {
+            document.getElementById('task' + taskNumber).querySelector('.complete-btn').style.display = 'none';
+            document.getElementById('completed' + taskNumber).style.display = 'inline';
+        }
+
+        // Load task status when the page is loaded
+        window.onload = loadTasks;
 
         // Close the modal when the close button is pressed
         document.getElementById('closeModalBtn').addEventListener('click', function() {
